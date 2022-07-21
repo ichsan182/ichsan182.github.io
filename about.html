@@ -37,16 +37,16 @@
                         <div class="menu-main-navigation-container">
                             <ul id="menu-main-navigation" class="menu">
                                 <li id="menu-item-3526" class="menu-item menu-item-type-post_type menu-item-object-service menu-item-3526">
-                                    <a href="/HTML/about.html">About Us</a>
+                                    <a href="about.html">About Us</a>
                                 </li>
                                 <li id="menu-item-3531" class="menu-item menu-item-type-post_type menu-item-object-service menu-item-3531">
-                                    <a href="/HTML/home.html">PPTI 16</a>
+                                    <a href="index.html">PPTI 16</a>
                                 </li>
                                 <li id="menu-item-3531" class="menu-item menu-item-type-post_type menu-item-object-service menu-item-3531">
                                     <a href="#">Position</a>
                                 </li>
                                 <li id="menu-item-3531" class="menu-item menu-item-type-post_type menu-item-object-service menu-item-3531">
-                                    <a href="/HTML/team.html">Our Teams</a>
+                                    <a href="team.html">Our Teams</a>
                                 </li>
                             </ul>
                         </div>
@@ -90,16 +90,16 @@
                     <div class="menu-main-navigation-container">
                         <ul id="menu-main-navigation-1" class="menu">
                             <li class="menu-item menu-item-type-post_type menu-item-object-service menu-item-3526">
-                                <a href="/HTML/about.html">About Us</a>
+                                <a href="about.html">About Us</a>
                             </li>
                             <li class="menu-item menu-item-type-post_type menu-item-object-service menu-item-3531">
-                                <a href="/HTML/home.html">PPTI 16</a>
+                                <a href="index.html">PPTI 16</a>
                             </li>
                             <li class="menu-item menu-item-type-post_type menu-item-object-service menu-item-3531">
                                 <a href="#">Position</a>
                             </li>
                             <li class="menu-item menu-item-type-post_type menu-item-object-service menu-item-3531">
-                                <a href="/HTML/team.html">Our Teams</a>
+                                <a href="team.html">Our Teams</a>
                             </li>
                         </ul>
                     </div>
@@ -116,159 +116,8 @@
             </nav>
         </header>
 
-        <script defer>
-            jQuery(document).ready(function ($) {
-                // CHAT
-                document.addEventListener("chatlio.ready", function (e) {
-                    if (_chatlio.isOnline()) {
-                        $("#chat-trigger").on("click", function (e) {
-                            e.preventDefault();
-                            _chatlio.showOrHide();
-                        });
-                        $("#chat-trigger").attr("title", "Online, Chat Now!");
-                        $("#chat-trigger span").text("Let's Chat");
-                        $("#online-dot").addClass("online");
-                    } else {
-                        $("#chat-trigger").attr("title", "Offline. Leave a Message!");
-                    }
-                });
-                // Scroll effects header
-                var header = $("#header");
-                callButton = $("#call-button");
-                $(window).scroll(function () {
-                    check();
-                });
-                check();
-                function check() {
-                    var st = $(window).scrollTop();
-                    if (st > 0) {
-                        if (!$(header).hasClass("st")) {
-                            $(header).addClass("st");
-                            $(header).removeClass("sth");
-                            $(callButton).removeClass("wobblez");
-                        }
-                    } else {
-                        if ($(header).hasClass("st")) {
-                            $(header).removeClass("st");
-                            $(header).addClass("sth");
-                            $(callButton).addClass("wobblez");
-                        }
-                        setTimeout(function () {
-                            $(header).removeClass("sth");
-                        }, 250);
-                        setTimeout(function () {
-                            $(callButton).removeClass("wobblez");
-                        }, 750);
-                    }
-                }
+        <script defer src="/JS/main.js"></script>
 
-                // HEADER SCROLL EFFECTS
-                // Hide Header on on scroll down
-                var didScroll;
-                var lastScrollTop = 0;
-                var delta = 5;
-                var navbarHeight = 0;
-
-                $(window).scroll(function (event) {
-                    didScroll = true;
-                });
-
-                setInterval(function () {
-                    if (didScroll) {
-                        hasScrolled();
-                        didScroll = false;
-                    }
-                }, 0);
-
-                function hasScrolled() {
-                    var st = $(this).scrollTop();
-                    var delta = 1;
-
-                    // Make sure they scroll more than delta
-                    if (Math.abs(lastScrollTop - st) <= delta) return;
-
-                    // If they scrolled down and are past the navbar, add class .nav-up.
-                    // This is necessary so you never see what is "behind" the navbar.
-                    if (st > lastScrollTop && st > navbarHeight) {
-                        // Scroll Down
-                        $("header").removeClass("scroll-up").addClass("scroll-down");
-                    } else {
-                        // Scroll Up
-                        if (st + $(window).height() < $(document).height()) {
-                            $("header").removeClass("scroll-down").addClass("scroll-up");
-                        }
-                    }
-                    if ((didScroll = false)) {
-                        $("header").removeClass("scroll-down").addClass("scroll-up trans");
-                    } else {
-                        $("header").removeClass("trans");
-                    }
-                    lastScrollTop = st;
-                }
-
-                $("#menu-toggle").click(function (event) {
-                    event.preventDefault();
-                    $(this).toggleClass("open");
-
-                    var fullScreenNav = $("#fullScreenNav");
-                    var navbar = $("#header");
-
-                    fullScreenNav.toggleClass("overlay-active");
-
-                    $("body").toggleClass("overflowHidden");
-
-                    if (fullScreenNav.hasClass("overlay-active")) {
-                        navbar.addClass("menu-open");
-                        // $('body').addClass('overflow-hidden');
-                        fullScreenNav.removeClass("closed");
-                    } else {
-                        // Hide the particle animation before we start the nav's "closing" transition to
-                        // keep things smooth on older devices.
-                        document.querySelector("#particle-animation-nav").classList.add("d-none");
-                        //navbar.removeClass('menu-open');
-                        // $('body').removeClass('overflow-hidden');
-                        fullScreenNav.addClass("closed");
-                    }
-                });
-
-                window.fyresite_full_nav_open = false;
-
-                // Add transitionend listener to the fullscreen nav element so we
-                // can trigger animations after the transition animation is completed
-                document.querySelector("#fullScreenNav").addEventListener("transitionend", function (e) {
-                    if (e.target.classList.contains("overlay-active")) {
-                        if (!window.fyresite_full_nav_open) {
-                            window.fyresite_full_nav_open = true;
-
-                            // Start animation here
-                            // Show the particle animation after the nav's "opening" transition is finished to
-                            // keep things smooth on older devices.
-                            document.querySelector("#particle-animation-nav").classList.remove("d-none");
-                        }
-                    } else {
-                        window.fyresite_full_nav_open = false;
-                    }
-                });
-            });
-        </script>
-
-        <script type="text/javascript">
-            //DYMANIC VIDEO PLAY
-            jQuery(document).ready(function ($) {
-                $(".play-button").click(function (e) {
-                    var iframeEl = $("<iframe>", { src: $(this).data("url") });
-                    $("#youtubevideo").attr("src", $(this).data("url"));
-                });
-
-                $("#close-video").click(function (e) {
-                    $("#youtubevideo").attr("src", "");
-                });
-
-                $(document).on("hidden.bs.modal", "#myModal", function () {
-                    $("#youtubevideo").attr("src", "");
-                });
-            });
-        </script>
         <!-- <div class="relative-container"> -->
         <main class="post-12143 post type-post status-publish format-standard has-post-thumbnail hentry category-hot-takes" style="padding-top: 0px">
             <section class="whitebg post-content content nrmlcontent">
@@ -288,41 +137,6 @@
             </section>
         </main>
 
-        <script id="intersectionobserver" src="https://www.fyresite.com/wp-content/plugins/fyrelazyload/assets/js/intersection-observer.js" type="text/javascript" defer></script>
-        <script id="lozad" src="https://www.fyresite.com/wp-content/plugins/fyrelazyload/assets/js/lozad.min.js" type="text/javascript" defer></script>
-        <script type="text/javascript" id="fyrelazyload-js-extra">
-            /* <![CDATA[ */
-            var lazyLocation = { pluginsUrl: "https:\/\/www.fyresite.com\/wp-content\/plugins" };
-            /* ]]> */
-        </script>
-        <script id="fyrelazyload" src="https://www.fyresite.com/wp-content/plugins/fyrelazyload/assets/js/fyrelazyload.js" type="text/javascript" defer></script>
-        <script id="outdated" src="https://www.fyresite.com/wp-content/themes/fyresite-child/vendors/outdatedbrowser/outdatedbrowser.min.js" type="text/javascript" defer></script>
-        <script id="wow" src="https://www.fyresite.com/wp-content/themes/fyresite-child/vendors/wow/wow.min.js" type="text/javascript" defer></script>
-        <script id="detect_swipe" src="https://www.fyresite.com/wp-content/themes/fyresite-child/vendors/featherlight/jquery.detect_swipe.js" type="text/javascript" defer></script>
-        <script id="featherlight" src="https://www.fyresite.com/wp-content/themes/fyresite-child/vendors/featherlight/featherlight.min.js" type="text/javascript" defer></script>
-        <script id="featherlightgallery" src="https://www.fyresite.com/wp-content/themes/fyresite-child/vendors/featherlight/featherlight.gallery.min.js" type="text/javascript" defer></script>
-        <script id="bootstrapjs" src="https://www.fyresite.com/wp-content/themes/fyresite-child/vendors/bootstrap/js/bootstrap.min.js" type="text/javascript" defer></script>
-        <script id="tilt" src="https://www.fyresite.com/wp-content/themes/fyresite-child/vendors/tilt/tilt.jquery.min.js" type="text/javascript" defer></script>
-        <script id="childjs" src="https://www.fyresite.com/wp-content/themes/fyresite-child/assets/js/child.js" type="text/javascript" defer></script>
-        <script id="easy-social-share-buttons-core" src="https://www.fyresite.com/wp-content/plugins/easy-social-share-buttons3/assets/js/essb-core.min.js" type="text/javascript" defer></script>
-        <script id="gform_json" src="https://www.fyresite.com/wp-content/plugins/gravityforms/js/jquery.json.min.js" type="text/javascript" defer></script>
-        <script type="text/javascript" id="gform_gravityforms-js-extra">
-            /* <![CDATA[ */
-            var gf_global = { gf_currency_config: { name: "U.S. Dollar", symbol_left: "$", symbol_right: "", symbol_padding: "", thousand_separator: ",", decimal_separator: ".", decimals: 2 }, base_url: "https:\/\/www.fyresite.com\/wp-content\/plugins\/gravityforms", number_formats: [], spinnerUrl: "https:\/\/www.fyresite.com\/wp-content\/plugins\/gravityforms\/images\/spinner.gif" };
-            /* ]]> */
-        </script>
-        <script id="gform_gravityforms" src="https://www.fyresite.com/wp-content/plugins/gravityforms/js/gravityforms.min.js" type="text/javascript" defer></script>
-        <script id="gform_textarea_counter" src="https://www.fyresite.com/wp-content/plugins/gravityforms/js/jquery.textareaCounter.plugin.min.js" type="text/javascript" defer></script>
-        <script id="gform_masked_input" src="https://www.fyresite.com/wp-content/plugins/gravityforms/js/jquery.maskedinput.min.js" type="text/javascript" defer></script>
-        <script id="gform_placeholder" src="https://www.fyresite.com/wp-content/plugins/gravityforms/js/placeholders.jquery.min.js" type="text/javascript" defer></script>
-        <script type="text/javascript">
-            var essb_clicked_lovethis = (window.essb_clicked_lovethis = false);
-            var essb_love_you_message_thanks = (window.essb_love_you_message_thanks = "Thank you for loving this.");
-            var essb_love_you_message_loved = (window.essb_love_you_message_loved = "You already love this today.");
-        </script>
-        <!-- </div> -->
-        <noscript>
-            <img src="https://ws.zoominfo.com/pixel/61b28d53e97826001a6d6d36" width="1" height="1" style="display: none" />
-        </noscript>
+        <script src="/JS/datawow.js" defer></script>
     </body>
 </html>
